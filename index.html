@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" class="lenis lenis-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ScentQuiz | Find Your Signature Fragrance</title>
+  <meta name="description"
+    content="Discover your olfactory profile among more than 150 masterpieces of global haute parfumerie." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="editorial-theme">
+
+  <!-- EXTREMELY MINIMALIST HEADER -->
+  <header class="luxury-header">
+    <div class="header-left">
+      <span class="header-link">The Experience</span>
+    </div>
+    <div class="header-center">
+      <span class="logo-mark">ScentQuiz</span>
+    </div>
+    <div class="header-right">
+      <a href="#quiz-wrapper" class="header-link quiz-trigger">The Diagnostic</a>
+    </div>
+  </header>
+
+  <!-- EDITORIAL HERO SECTION -->
+  <main id="main-content">
+    <section class="hero-editorial">
+      <div class="hero-image-pane">
+        <img src="orange_sensaroma.png" alt="Haute Parfumerie" class="hero-img" />
+        <div class="hero-img-overlay"></div>
+      </div>
+      <div class="hero-text-pane">
+        <p class="hero-surtitle">Advanced Olfactory Analysis</p>
+        <h1 class="hero-headline">
+          Find your<br />
+          <em>absolute</em><br />
+          signature.
+        </h1>
+        <p class="hero-paragraph">
+          Forget the marketing. Focus on the essence.<br />
+          Our algorithm cross-references your personality with a library of hundreds of the most iconic and
+          influential olfactory works of art.
+        </p>
+        <a href="#quiz-wrapper" class="btn-editorial pulse-subtle quiz-trigger">
+          Start the diagnostic
+        </a>
+      </div>
+    </section>
+
+    <!-- STATEMENT SECTION -->
+    <section class="statement-section">
+      <div class="statement-grid">
+        <div class="statement-item">
+          <span class="st-number">150+</span>
+          <h3 class="st-title">Exceptional Fragrances</h3>
+          <p class="st-desc">From confidential niche to timeless classics, meticulously cataloged.</p>
+        </div>
+        <div class="statement-item">
+          <span class="st-number">06</span>
+          <h3 class="st-title">Masterful Families</h3>
+          <p class="st-desc">Woody, Oriental, Floral, Chypre, Fougère, and Fresh. The complete chessboard of perfumery.
+          </p>
+        </div>
+        <div class="statement-item">
+          <span class="st-number">08</span>
+          <h3 class="st-title">Measurement Points</h3>
+          <p class="st-desc">A precise psychological and sensory questionnaire to define your aura.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- TOTAL QUIZ OVERLAY (Takes up whole screen) -->
+  <div class="quiz-overlay" id="quiz-wrapper">
+    <div class="quiz-overlay-bg"></div>
+    <div class="quiz-close">✕</div>
+
+    <div class="quiz-content-container" id="quiz-container">
+
+      <!-- QUIZ START -->
+      <div class="quiz-view active" id="view-intro">
+        <p class="q-surtitle">The Protocol</p>
+        <h2 class="q-headline">Close your eyes.<br /><em>Let your senses speak.</em></h2>
+        <p class="q-desc">Answer instinctively. There are no wrong choices, only your true nature expressing itself.</p>
+        <button class="btn-editorial mt-8" id="start-btn">Begin the analysis</button>
+      </div>
+
+      <!-- QUESTIONS -->
+      <div class="quiz-view" id="view-questions">
+        <div class="q-progress-indicator">
+          <span class="q-current" id="q-current-num">01</span>
+          <span class="q-separator"></span>
+          <span class="q-total">08</span>
+        </div>
+
+        <div class="q-body" id="q-body">
+          <!-- Injected via JS -->
+        </div>
+
+        <div class="q-footer">
+          <button class="btn-text" id="prev-btn" disabled>Back</button>
+        </div>
+      </div>
+
+      <!-- RESULTS -->
+      <div class="quiz-view" id="view-results">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+  </div>
+
+  <script src="database_part1.js"></script>
+  <script src="database_part2.js"></script>
+  <script src="database.js"></script>
+  <script src="quiz.js"></script>
+</body>
+
+</html>
