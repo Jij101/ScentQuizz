@@ -1,49 +1,52 @@
 // ============================================================
-// SCENTQUIZ - Quiz Engine
-// FIX DATABASE LOADING - À METTRE TOUT EN HAUT DU FICHIER
+// FIX DATABASE - VERSION ROBUSTE
 // ============================================================
 
-// Force la création de FRAGRANCE_DB si elle n'existe pas encore
-function initDatabase() {
-  if (typeof FRAGRANCE_DB !== "undefined" && FRAGRANCE_DB.length > 0) {
-    console.log("✅ FRAGRANCE_DB déjà chargé (" + FRAGRANCE_DB.length + " parfums)");
-    return;
-  }
+console.log("Initialisation de la database...");
 
+let FRAGRANCE_DB = [];
+
+// Attendre que les parties soient chargées
+function initFragranceDB() {
   if (typeof FRAGRANCE_DB_1 !== "undefined" &&
     typeof FRAGRANCE_DB_2 !== "undefined" &&
     typeof FRAGRANCE_DB_3 !== "undefined") {
 
-    window.FRAGRANCE_DB = [...FRAGRANCE_DB_1, ...FRAGRANCE_DB_2, ...FRAGRANCE_DB_3];
-    console.log("✅ FRAGRANCE_DB créé avec succès (" + FRAGRANCE_DB.length + " parfums)");
+    FRAGRANCE_DB = [...FRAGRANCE_DB_1, ...FRAGRANCE_DB_2, ...FRAGRANCE_DB_3];
+    console.log(`✅ FRAGRANCE_DB chargé avec succès ! (${FRAGRANCE_DB.length} parfums)`);
+
+    // Si la fonction matchPerfumes existe déjà, on la relance si nécessaire
+    if (typeof window.lastAnswers !== "undefined") {
+      matchPerfumes(window.lastAnswers);
+    }
   } else {
-    console.warn("Database parts not loaded yet, retrying...");
-    setTimeout(initDatabase, 100);
+    console.log("⏳ Database parts not loaded yet, retrying in 100ms...");
+    setTimeout(initFragranceDB, 100);
   }
 }
 
-// Exécuter l'initialisation
-initDatabase();
+// Lancer l'initialisation
+initFragranceDB();
 
-// Attendre que la database soit prête avant d'utiliser matchPerfumes
-function safeMatchPerfumes(answers) {
-  if (typeof FRAGRANCE_DB === "undefined" || FRAGRANCE_DB.length === 0) {
-    console.warn("FRAGRANCE_DB not ready yet, waiting...");
-    setTimeout(() => safeMatchPerfumes(answers), 100);
+// Rendre FRAGRANCE_DB disponible globalement
+window.FRAGRANCE_DB = FRAGRANCE_DB;
+
+// Version safe de matchPerfumes
+const originalMatchPerfumes = typeof matchPerfumes === "function" ? matchPerfumes : function () { };
+window.matchPerfumes = function (answers) {
+  window.lastAnswers = answers;   // sauvegarde pour retry
+
+  if (FRAGRANCE_DB.length === 0) {
+    console.warn("FRAGRANCE_DB not ready, waiting...");
+    setTimeout(() => window.matchPerfumes(answers), 150);
     return;
   }
 
-  // Appel à ta fonction originale de matching
-  matchPerfumesOriginal(answers);
-}
-
-// Renommer ta fonction originale pour éviter les conflits
-const matchPerfumesOriginal = matchPerfumes || function (answers) {
-  console.error("matchPerfumesOriginal not defined");
+  console.log("Matching with", FRAGRANCE_DB.length, "perfumes");
+  originalMatchPerfumes(answers);
 };
 
-// Remplacer la fonction matchPerfumes par la version safe
-window.matchPerfumes = safeMatchPerfumes;
+console.log("Database fix chargé");
 
 // ====================== TON CODE ORIGINAL COMMENCE ICI ======================
 
