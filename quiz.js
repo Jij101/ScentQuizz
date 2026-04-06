@@ -4,6 +4,9 @@
 // ============================================================
 
 // QUESTIONS DATABASE (Cleaned editorial version, no emojis)
+if (typeof FRAGRANCE_DB === "undefined") {
+  console.error("FRAGRANCE_DB n'est pas défini ! Vérifie l'ordre des scripts dans index.html");
+}
 const QUESTIONS = [
   {
     id: 1,

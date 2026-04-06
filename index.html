@@ -1,5 +1,45 @@
 <!DOCTYPE html>
-<html lang="en" class="lenis lenis-smooth">
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScentQuizz</title>
+  <style>
+    .lang-switch {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="lang-switch" onclick="toggleLanguage('en')">EN</div> |
+    <div class="lang-switch" onclick="toggleLanguage('fr')">FR</div>
+  </header>
+
+  <!-- Votre contenu HTML ici -->
+
+  <script>
+    let currentLang = 'en';
+
+    function toggleLanguage(lang) {
+      if (lang === currentLang) return;
+
+      const elements = document.querySelectorAll('[data-i18n]');
+      elements.forEach(element => {
+        element.textContent = element.getAttribute(`data-i18n-${lang}`);
+      });
+
+      currentLang = lang;
+    }
+  </script>
+</body>
+
+</html>
 
 <head>
   <meta charset="UTF-8" />
@@ -148,8 +188,53 @@
   </div>
 
   <script src="database_part1.js"></script>
-  <script src="storage.js"></script>
+  <script src="database_part2.js"></script>
+  <script src="database_part3.js"></script>
+  <script src="database.js"></script>
+
   <script src="quiz.js"></script>
 </body>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScentQuizz</title>
+  <style>
+    .lang-switch {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="lang-switch" onclick="toggleLanguage('en')">EN</div> |
+    <div class="lang-switch" onclick="toggleLanguage('fr')">FR</div>
+  </header>
+
+  <!-- Votre contenu HTML ici -->
+
+  <script>
+    let currentLang = 'en';
+
+    function toggleLanguage(lang) {
+      if (lang === currentLang) return;
+
+      const elements = document.querySelectorAll('[data-i18n]');
+      elements.forEach(element => {
+        element.textContent = element.getAttribute(`data-i18n-${lang}`);
+      });
+
+      currentLang = lang;
+    }
+  </script>
+</body>
+
+</html>
 
 </html>
