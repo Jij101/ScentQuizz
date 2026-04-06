@@ -178,6 +178,23 @@ function renderResults() {
   const rawScores = computeScores();
   const ranked = matchPerfumes(rawScores);
   const top3 = ranked.slice(0, 3);
+
+  // Save the results automatically
+  // === SAUVEGARDE DES RÉSULTATS DU QUIZ ===
+  function saveQuizResults(answers, recommendations) {
+    const resultData = {
+      date: new Date().toISOString(),
+      answers: answers || {},
+      recommendations: recommendations || [],
+      totalRecommendations: recommendations ? recommendations.length : 0
+    };
+
+    localStorage.setItem('scentQuiz_lastResult', JSON.stringify(resultData));
+    console.log('✅ Résultats du quiz sauvegardés avec succès');
+  }
+
+  // Appel de la sauvegarde (à mettre à la fin de ta fonction de résultats)
+  saveQuizResults(userAnswers, recommendedPerfumes);
   const dominantFamily = Object.entries(rawScores).sort((a, b) => b[1] - a[1])[0][0];
   const meta = FAMILY_META[dominantFamily];
 
