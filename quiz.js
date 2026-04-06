@@ -2,7 +2,14 @@
 // SCENTIQ — Editorial Quiz Engine
 // Brutalist / Minimalist implementation
 // ============================================================
-
+// FIX - Force le chargement de la database
+if (typeof FRAGRANCE_DB === "undefined") {
+  window.FRAGRANCE_DB = [
+    ...(window.FRAGRANCE_DB_1 || []),
+    ...(window.FRAGRANCE_DB_2 || []),
+    ...(window.FRAGRANCE_DB_3 || [])
+  ];
+}
 // QUESTIONS DATABASE (Cleaned editorial version, no emojis)
 if (typeof FRAGRANCE_DB === "undefined") {
   console.error("FRAGRANCE_DB n'est pas défini ! Vérifie l'ordre des scripts dans index.html");
