@@ -1,14 +1,41 @@
 // ============================================================
-// SCENTIQ — Editorial Quiz Engine
-// Brutalist / Minimalist implementation
+// SCENTQUIZ — Quiz Engine
 // ============================================================
-// FIX - Force le chargement de la database
+
+// FIX DATABASE LOADING - À METTRE TOUT EN HAUT DU FICHIER
 if (typeof FRAGRANCE_DB === "undefined") {
-  window.FRAGRANCE_DB = [
-    ...(window.FRAGRANCE_DB_1 || []),
-    ...(window.FRAGRANCE_DB_2 || []),
-    ...(window.FRAGRANCE_DB_3 || [])
-  ];
+  console.warn("FRAGRANCE_DB not defined yet, waiting...");
+
+  // Attendre que les fichiers database soient chargés
+  setTimeout(() => {
+    if (typeof FRAGRANCE_DB_1 !== "undefined" &&
+      typeof FRAGRANCE_DB_2 !== "undefined" &&
+      typeof FRAGRANCE_DB_3 !== "undefined") {
+
+      window.FRAGRANCE_DB = [...FRAGRANCE_DB_1, ...FRAGRANCE_DB_2, ...FRAGRANCE_DB_3];
+      console.log("✅ FRAGRANCE_DB created successfully with", FRAGRANCE_DB.length, "perfumes");
+    }
+  }, 100);
+}
+
+
+// ====================== TES FONCTIONS EXISTANTES ======================
+
+// Remplace ta fonction matchPerfumes actuelle par celle-ci :
+function matchPerfumes(answers) {
+  // Attendre que la database soit prête
+  if (typeof FRAGRANCE_DB === "undefined" || FRAGRANCE_DB.length === 0) {
+    console.warn("Waiting for FRAGRANCE_DB...");
+    setTimeout(() => matchPerfumes(answers), 100);
+    return;
+  }
+
+  console.log("Matching perfumes with", FRAGRANCE_DB.length, "items");
+
+  // Ton code original de matchPerfumes ici...
+  console.log("FRAGRANCE_DB chargé avec", FRAGRANCE_DB.length, "parfums");
+
+  // ... le reste de ta fonction matchPerfumes
 }
 // QUESTIONS DATABASE (Cleaned editorial version, no emojis)
 if (typeof FRAGRANCE_DB === "undefined") {
