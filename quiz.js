@@ -367,3 +367,33 @@ setTimeout(() => {
     // Prev button
     document.getElementById('prev-btn').addEventListener('click', handlePrev);
   });
+  // FIX BOUTON START - À AJOUTER À LA FIN
+  document.addEventListener('DOMContentLoaded', function () {
+    const startBtn = document.getElementById('start-btn');
+
+    if (startBtn) {
+      startBtn.addEventListener('click', function () {
+        console.log("Bouton Start cliqué !");
+        const quizWrapper = document.getElementById('quiz-wrapper');
+
+        if (quizWrapper) {
+          quizWrapper.style.display = 'flex';
+          quizWrapper.classList.add('active');
+
+          // Lancer le quiz
+          if (typeof startQuiz === 'function') {
+            startQuiz();
+          } else if (typeof showIntro === 'function') {
+            showIntro();
+          } else {
+            // Si aucune fonction n'existe, on force l'affichage de la première vue
+            document.getElementById('view-intro').classList.add('active');
+          }
+        }
+      });
+
+      console.log("✅ Bouton Start réactivé avec succès");
+    } else {
+      console.error("❌ Bouton #start-btn non trouvé");
+    }
+  });
