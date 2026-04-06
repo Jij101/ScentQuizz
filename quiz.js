@@ -1,22 +1,51 @@
 // ============================================================
-// SCENTQUIZ — Quiz Engine
+// SCENTQUIZ - Quiz Engine
+// FIX DATABASE LOADING - À METTRE TOUT EN HAUT DU FICHIER
 // ============================================================
 
-// FIX DATABASE LOADING - À METTRE TOUT EN HAUT DU FICHIER
-if (typeof FRAGRANCE_DB === "undefined") {
-  console.warn("FRAGRANCE_DB not defined yet, waiting...");
+// Force la création de FRAGRANCE_DB si elle n'existe pas encore
+function initDatabase() {
+  if (typeof FRAGRANCE_DB !== "undefined" && FRAGRANCE_DB.length > 0) {
+    console.log("✅ FRAGRANCE_DB déjà chargé (" + FRAGRANCE_DB.length + " parfums)");
+    return;
+  }
 
-  // Attendre que les fichiers database soient chargés
-  setTimeout(() => {
-    if (typeof FRAGRANCE_DB_1 !== "undefined" &&
-      typeof FRAGRANCE_DB_2 !== "undefined" &&
-      typeof FRAGRANCE_DB_3 !== "undefined") {
+  if (typeof FRAGRANCE_DB_1 !== "undefined" &&
+    typeof FRAGRANCE_DB_2 !== "undefined" &&
+    typeof FRAGRANCE_DB_3 !== "undefined") {
 
-      window.FRAGRANCE_DB = [...FRAGRANCE_DB_1, ...FRAGRANCE_DB_2, ...FRAGRANCE_DB_3];
-      console.log("✅ FRAGRANCE_DB created successfully with", FRAGRANCE_DB.length, "perfumes");
-    }
-  }, 100);
+    window.FRAGRANCE_DB = [...FRAGRANCE_DB_1, ...FRAGRANCE_DB_2, ...FRAGRANCE_DB_3];
+    console.log("✅ FRAGRANCE_DB créé avec succès (" + FRAGRANCE_DB.length + " parfums)");
+  } else {
+    console.warn("Database parts not loaded yet, retrying...");
+    setTimeout(initDatabase, 100);
+  }
 }
+
+// Exécuter l'initialisation
+initDatabase();
+
+// Attendre que la database soit prête avant d'utiliser matchPerfumes
+function safeMatchPerfumes(answers) {
+  if (typeof FRAGRANCE_DB === "undefined" || FRAGRANCE_DB.length === 0) {
+    console.warn("FRAGRANCE_DB not ready yet, waiting...");
+    setTimeout(() => safeMatchPerfumes(answers), 100);
+    return;
+  }
+
+  // Appel à ta fonction originale de matching
+  matchPerfumesOriginal(answers);
+}
+
+// Renommer ta fonction originale pour éviter les conflits
+const matchPerfumesOriginal = matchPerfumes || function (answers) {
+  console.error("matchPerfumesOriginal not defined");
+};
+
+// Remplacer la fonction matchPerfumes par la version safe
+window.matchPerfumes = safeMatchPerfumes;
+
+// ====================== TON CODE ORIGINAL COMMENCE ICI ======================
 
 
 // ====================== TES FONCTIONS EXISTANTES ======================
